@@ -20,7 +20,7 @@
 #' Disponível em: \url:{http//est.ufmg.br/portal/arquivos/mestrado/dissertacoes/dissertacao_Leticia_Silva_Nunes.pdf}. Acesso em: 2 mar. 2022.
 #'
 #' @import spdep
-#' 
+#'
 #' @export
 
 prepare_data <- function(dataset, coord, limits = c(), grid = 10, continuous = FALSE){
@@ -40,7 +40,7 @@ prepare_data <- function(dataset, coord, limits = c(), grid = 10, continuous = F
     stop("Both objects 'dataset' and 'coord' must have the same amount of elements")
 
 
-  if(continuous != FALSE){
+  if(is.numeric(continuous)){
 
     vZ = length(continuous)
     Z = matrix(NA, n, vZ)
@@ -85,7 +85,7 @@ prepare_data <- function(dataset, coord, limits = c(), grid = 10, continuous = F
   xmin = min(coord[,1])
   ymax = max(coord[,2])
   ymin = min(coord[,2])
-  
+
   if (length(limits) == 0) {
     # Dividing in equal spaces according to the 'grid' value
     dxvec = (xmax - xmin) / grid
@@ -94,7 +94,7 @@ prepare_data <- function(dataset, coord, limits = c(), grid = 10, continuous = F
     latvec = seq(ymin,ymax,dyvec)
   } else {
     # Lower and upper limits for latitude and longitude passed by the users
-    # Dividing in equal spaces according to the 'grid' value        
+    # Dividing in equal spaces according to the 'grid' value
     dxvec = (limits[2] - limits[1]) / grid
     dyvec = (limits[4] - limits[3]) / grid
     lonvec = seq(limits[1],limits[2],dxvec)
@@ -105,10 +105,10 @@ prepare_data <- function(dataset, coord, limits = c(), grid = 10, continuous = F
         n_coords_outside = n_coords_outside + 1
       }
     }
-    cat("Warning: Number of coordinates outside the informed limit = ", 
+    cat("Warning: Number of coordinates outside the informed limit = ",
         n_coords_outside, "\n")
   }
-  
+
   # Vectors of latitude and longitude divided
   xlon = findInterval(coord[,1], lonvec, all.inside = T)
   ylat = findInterval(coord[,2], latvec, all.inside = T)
@@ -174,7 +174,7 @@ prepare_data <- function(dataset, coord, limits = c(), grid = 10, continuous = F
   }
 
 
-  if(continuous != FALSE){
+  if(is.numeric(continuous)){
 
     z.bar = z.pad = array(NA, c(G, B, vZ))
 
@@ -195,7 +195,7 @@ prepare_data <- function(dataset, coord, limits = c(), grid = 10, continuous = F
     }
   }
 
-  if(continuous != FALSE){
+  if(is.numeric(continuous)){
     return(list(n=n, p=p, vx=vx, nx=nx, B=B, b=b, G=G,
                 latvec=latvec, lonvec=lonvec, comb=comb, ci_b=ci_b, ni=ni,
                 ind.a=ind.a, sub.a=sub.a, W=W, Z=Z, vZ=vZ, z.pad=z.pad, z.bar=z.bar))
