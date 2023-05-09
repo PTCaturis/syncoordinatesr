@@ -49,7 +49,7 @@ prepare_data <- function(dataset, coord, limits = c(), grid = 10, continuous = F
       col_Z = continuous[i]
       Z[, i] = dataset[, col_Z]
     }
-    for(i in 1:vZ){
+    for(i in vZ:1){
       col_Z = continuous[i]
       dataset = dataset[, -col_Z]
     }
